@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: kp-smart-home-server
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:./data
+    platform: h2
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
