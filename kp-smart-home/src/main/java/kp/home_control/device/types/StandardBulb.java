@@ -1,6 +1,8 @@
-package kp.home_control.device;
+package kp.home_control.device.types;
 
 import kp.device_setting.DeviceSettingType;
+import kp.home_control.device.Device;
+import kp.home_control.device.DeviceVisitor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

@@ -1,6 +1,8 @@
-package kp.home_control.device;
+package kp.home_control.device.types;
 
 import kp.device_setting.DeviceSettingType;
+import kp.home_control.device.Device;
+import kp.home_control.device.DeviceVisitor;
 import kp.home_control.dto.DeviceCapabilities;
 import lombok.NoArgsConstructor;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -8,7 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.io.IOException;
 import java.util.List;
 
-public class Speakers implements Device{
+public class Speakers implements Device {
 
     private final String spotify ="http://open.spotify.com";
 

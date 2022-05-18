@@ -68,10 +68,17 @@ public class HomeService {
                 .collect(Collectors.toList());
     }
 
-    public DeviceInfo setDeviceSettings(List<DeviceSettingDTO> settings, String deviceName) {
-        settings = settings.stream().peek(e->e.setDeviceName(deviceName)).collect(Collectors.toList());
-        deviceFactory.createDevice(deviceName).accept(new DeviceSettingsVisitor(settings, deviceSettingRepository));
-        return getDeviceInformation(deviceName);
+    public List<DeviceInfo> setDeviceSettings(List<DeviceSettingDTO> settings, String deviceName) {
+        settings
+                .stream()
+                .peek(e->{
+                    if(e.getDeviceName() == null){
+                        e.setDeviceName(deviceName);
+                    }
+                }).collect(Collectors.groupingBy(
+                        DeviceSettingDTO::getDeviceName
+                )).forEach((k,v)->deviceFactory.createDevice(k).accept(new DeviceSettingsVisitor(v, deviceSettingRepository)));
+        return getAllDeviceInformation();
     }
 
     public boolean isOnline(String deviceName){

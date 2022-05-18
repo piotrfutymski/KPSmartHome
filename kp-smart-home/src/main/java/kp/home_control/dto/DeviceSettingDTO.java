@@ -1,6 +1,8 @@
 package kp.home_control.dto;
 
 import kp.device_setting.DeviceSettingType;
+import kp.profile.domain.Profile;
+import kp.profile.dto.ProfileDTO;
 import lombok.*;
 
 import java.time.LocalDateTime;

@@ -3,6 +3,8 @@ package kp.home_control.device;
 import kp.device_setting.DeviceSettingType;
 import kp.device_setting.domain.DeviceSetting;
 import kp.device_setting.repository.DeviceSettingRepository;
+import kp.home_control.device.types.Speakers;
+import kp.home_control.device.types.StandardBulb;
 import kp.home_control.dto.DeviceSettingDTO;
 import lombok.RequiredArgsConstructor;
 
@@ -17,16 +19,9 @@ public class DeviceSettingsVisitor implements DeviceVisitor {
     private final DeviceSettingRepository deviceSettingRepository;
 
     public void clearSettings(Device device){
-        deviceSettingRepository.findByDeviceNameAndStartedAtIsNotNull(device.getName())
-                .forEach(e->{
-                    if(e.getAttachedProfile() != null){
-                        e.setSetByUser(null);
-                        e.setStartedAt(null);
-                        deviceSettingRepository.save(e);
-                    }else{
-                        deviceSettingRepository.delete(e);
-                    }
-                });
+        deviceSettingRepository
+                .findByDeviceNameAndStartedAtIsNotNull(device.getName())
+                .forEach(deviceSettingRepository::delete);
     }
 
     public List<DeviceSettingDTO> getFilteredSettingsForDevice(Device device){
@@ -47,7 +42,7 @@ public class DeviceSettingsVisitor implements DeviceVisitor {
                     if(e.getSetting().equals(DeviceSettingType.BRIGHTNESS)){
                         standardBulb.setBrightness(e.getSettingValue());
                     }
-                    deviceSettingRepository.save(new DeviceSetting(e, true));
+                    deviceSettingRepository.save(new DeviceSetting(e, true, null));
                 });
 
     }
@@ -61,7 +56,7 @@ public class DeviceSettingsVisitor implements DeviceVisitor {
                     if(e.getSetting().equals(DeviceSettingType.VOLUME)){
                         speakers.setVolume(e.getSettingValue());
                     }
-                    deviceSettingRepository.save(new DeviceSetting(e, true));
+                    deviceSettingRepository.save(new DeviceSetting(e, true, null));
                 });
     }
 }

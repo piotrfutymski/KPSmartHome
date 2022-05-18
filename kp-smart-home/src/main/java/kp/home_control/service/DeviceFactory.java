@@ -1,16 +1,14 @@
 package kp.home_control.service;
 
 import kp.home_control.device.Device;
-import kp.home_control.device.Speakers;
-import kp.home_control.device.StandardBulb;
+import kp.home_control.device.types.Speakers;
+import kp.home_control.device.types.StandardBulb;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Service

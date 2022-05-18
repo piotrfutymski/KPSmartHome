@@ -35,7 +35,7 @@ public class HomeController {
     }
 
     @PostMapping("/{deviceName}")
-    public DeviceInfo setDeviceSettings(@RequestBody List<DeviceSettingDTO> settings, @PathVariable(name = "deviceName") String deviceName){
+    public List<DeviceInfo> setDeviceSettings(@RequestBody List<DeviceSettingDTO> settings, @PathVariable(name = "deviceName") String deviceName){
         return homeService.setDeviceSettings(settings, deviceName);
     }
 

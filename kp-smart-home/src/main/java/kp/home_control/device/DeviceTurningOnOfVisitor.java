@@ -2,8 +2,9 @@ package kp.home_control.device;
 
 import kp.device_setting.DeviceSettingType;
 import kp.device_setting.repository.DeviceSettingRepository;
+import kp.home_control.device.types.Speakers;
+import kp.home_control.device.types.StandardBulb;
 import kp.home_control.dto.DeviceSettingDTO;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
