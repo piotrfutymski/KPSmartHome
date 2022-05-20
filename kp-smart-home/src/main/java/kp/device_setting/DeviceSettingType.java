@@ -6,24 +6,17 @@ import java.util.function.Function;
 
 public enum DeviceSettingType {
     BRIGHTNESS(Integer::parseInt),
-    COLOR_RED(Integer::parseInt),
-    COLOR_GREEN(Integer::parseInt),
-    COLOR_BLUE(Integer::parseInt),
+    COLOR(Integer::parseInt),
     VOLUME(Integer::parseInt),
     SPOTIFY_PLAYLIST(e->e),
     SPOTIFY_SONG(e->e),
     NEXT_BRIGHTNESS(ChangingIntSettingValue::new),
-    NEXT_COLOR_RED(ChangingIntSettingValue::new),
-    NEXT_COLOR_GREEN(ChangingIntSettingValue::new),
-    NEXT_COLOR_BLUE(ChangingIntSettingValue::new),
+    NEXT_COLOR(ChangingIntSettingValue::new),
     NEXT_VOLUME(ChangingIntSettingValue::new);
 
-    public static final Integer TICK_DURATION = 100;
+    private final Function<String, Object> serializer;
 
-
-    private Function<String, Object> serializer;
-
-    private Function<Object, String> deserializer;
+    private final Function<Object, String> deserializer;
 
     DeviceSettingType(Function<String, Object> serializer, Function<Object, String> deserializer){
         this.serializer = serializer;

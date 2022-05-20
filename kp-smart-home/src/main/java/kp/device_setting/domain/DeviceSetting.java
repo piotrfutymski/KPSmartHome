@@ -32,12 +32,7 @@ public class DeviceSetting {
     private DeviceSettingType setting;
 
     private String deviceValue;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startedAt;
-
-    private String setByUser;
-
+    private Boolean started;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Profile attachedProfile;
@@ -46,12 +41,7 @@ public class DeviceSetting {
         this.deviceName = deviceSettingDTO.getDeviceName();
         this.setting = deviceSettingDTO.getSetting();
         this.deviceValue = deviceSettingDTO.getDeviceValue();
-        this.startedAt = isCurrent ? new Date() : null;
-        try{
-            this.setByUser = isCurrent ? SecurityContextHolder.getContext().getAuthentication().getName() : null;
-        }catch (Exception ignored){
-
-        }
+        this.started = isCurrent;
         this.attachedProfile = profile;
     }
 
@@ -61,10 +51,13 @@ public class DeviceSetting {
                 .deviceName(deviceName)
                 .setting(setting)
                 .deviceValue(deviceValue)
-                .startedAt(DateTimeUtils.fromDate(startedAt))
-                .setByUser(setByUser)
+                .started(started)
                 .attachedProfile(Optional.ofNullable(attachedProfile).map(Profile::getName).orElse(null))
                 .build();
+    }
+
+    public <T> T getSettingValue(){
+        return setting.mapValue(deviceValue);
     }
 
 }

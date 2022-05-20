@@ -1,6 +1,7 @@
 package kp.home_control.device.types;
 
 import kp.device_setting.DeviceSettingType;
+import kp.home_control.device.AbstractDevice;
 import kp.home_control.device.Device;
 import kp.home_control.device.DeviceVisitor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,12 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Slf4j
-public class StandardBulb implements Device {
+public class StandardBulb extends AbstractDevice {
 
-    String name;
+    private Integer brightness = 0;
 
     public StandardBulb(String name){
-        this.name = name;
+        super(name);
     }
 
     @Override
@@ -27,11 +28,6 @@ public class StandardBulb implements Device {
         return true;
     }
 
-    public void setBrightness(Integer brightness){
-        log.info("Setting brightness: " + brightness);
-    }
-
-
     @Override
     public List<DeviceSettingType> getCapabilities() {
         return List.of(DeviceSettingType.BRIGHTNESS, DeviceSettingType.NEXT_BRIGHTNESS);
@@ -40,5 +36,14 @@ public class StandardBulb implements Device {
     @Override
     public String getName() {
         return name;
+    }
+
+    public void setBrightness(Integer brightness){
+        log.info("On device {}, setting brightness: {}", getName(), brightness);
+        this.brightness = brightness;
+    }
+
+    public Integer getBrightness(){
+        return brightness;
     }
 }

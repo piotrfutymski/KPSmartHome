@@ -17,8 +17,7 @@ public class DeviceSettingDTO {
     private String deviceName;
     private DeviceSettingType setting;
     private String deviceValue;
-    private LocalDateTime startedAt;
-    private String setByUser;
+    private Boolean started;
     private String attachedProfile;
 
     public <T> T getSettingValue(){

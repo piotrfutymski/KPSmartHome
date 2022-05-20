@@ -2,6 +2,7 @@ package kp.home_control.device;
 
 import kp.device_setting.DeviceSettingType;
 import kp.device_setting.repository.DeviceSettingRepository;
+import kp.home_control.device.types.RGBBulb;
 import kp.home_control.device.types.Speakers;
 import kp.home_control.device.types.StandardBulb;
 import kp.home_control.dto.DeviceSettingDTO;
@@ -12,8 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DeviceStartingOnlineVisitor implements DeviceVisitor{
 
-    private final DeviceSettingRepository deviceSettingRepository;
-
     @Override
     public void visit(StandardBulb standardBulb) {
         DeviceSettingDTO deviceSettingDTO = DeviceSettingDTO
@@ -22,7 +21,7 @@ public class DeviceStartingOnlineVisitor implements DeviceVisitor{
                 .setting(DeviceSettingType.BRIGHTNESS)
                 .deviceValue("255")
                 .build();
-        new DeviceSettingsVisitor(List.of(deviceSettingDTO), deviceSettingRepository).visit(standardBulb);
+        new DeviceSettingsVisitor(List.of(deviceSettingDTO)).visit(standardBulb);
     }
 
     @Override
@@ -31,8 +30,19 @@ public class DeviceStartingOnlineVisitor implements DeviceVisitor{
                 .builder()
                 .deviceName(speakers.getName())
                 .setting(DeviceSettingType.VOLUME)
-                .deviceValue("120")
+                .deviceValue("50")
                 .build();
-        new DeviceSettingsVisitor(List.of(deviceSettingDTO), deviceSettingRepository).visit(speakers);
+        new DeviceSettingsVisitor(List.of(deviceSettingDTO)).visit(speakers);
+    }
+
+    @Override
+    public void visit(RGBBulb rgbBulb) {
+        DeviceSettingDTO deviceSettingDTO = DeviceSettingDTO
+                .builder()
+                .deviceName(rgbBulb.getName())
+                .setting(DeviceSettingType.BRIGHTNESS)
+                .deviceValue("255")
+                .build();
+        new DeviceSettingsVisitor(List.of(deviceSettingDTO)).visit(rgbBulb);
     }
 }
